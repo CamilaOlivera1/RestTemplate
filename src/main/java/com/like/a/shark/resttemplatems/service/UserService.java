@@ -18,9 +18,16 @@ public class UserService {
 
     private final RestTemplate restTemplate;
 
-    public List<UserDTO> getUsers(){
+
+    public List<UserDTO> getUsers() {
         UserDTO[] response = restTemplate.getForObject(basePath + "/users", UserDTO[].class);
-        return Arrays.asList(response);
+
+        if (response != null) {
+            return Arrays.asList(response);
+        } else {
+            // Maneja el caso en el que response es null, por ejemplo, devolviendo una lista vacía
+            return List.of();
+        }
     }
 
     public void saveUser(UserDTO user){
